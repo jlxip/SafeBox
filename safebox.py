@@ -16,7 +16,15 @@ KEY = False
 # If you are reading this and you know why, please tell me.
 
 def stage2():
-	if KEY == False: setKey()	# If key is not set (if a brand new safe box is being created), set it.
+	global KEY
+	if KEY == False:	# If key is not set (if a brand new safe box is being created), ask for it.
+		KEY_1 = hashlib.sha256(getpass.getpass()).digest()
+		KEY_2 = hashlib.sha256(getpass.getpass('Repeat password: ')).digest()
+		if(KEY_1 == KEY_2):
+			KEY = KEY_1
+		else:
+			print 'Passwords don\'t match!'
+			exit()
 
 	# Zip the files
 	SAFEBOX = False
